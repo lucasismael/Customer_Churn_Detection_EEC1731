@@ -1,5 +1,5 @@
-pytest pytest-sugar
-pandas-profiling==3.1.0
+pytest
+pandas 
 scipy
 numpy 
 scikit-learn
