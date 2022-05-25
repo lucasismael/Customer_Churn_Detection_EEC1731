@@ -85,4 +85,4 @@ async def get_inference(person: Person):
     # Predict test data
     predict = pipe.predict(df)
 
-    return "Not Exited" if predict[0] <= 0 else "Exited"
+    return "Continued" if predict[0] <= 0 else "Exited"

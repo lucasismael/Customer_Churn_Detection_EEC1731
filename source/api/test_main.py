@@ -18,8 +18,8 @@ def test_root():
     assert r.status_code == 200
 
 # a unit test that tests the status code and response 
-# for an instance with a low income
-def test_get_inference_not_exited():
+# for an customer with a "Continued" status.
+def test_get_inference_continued():
     
     person = {
         "CreditScore": 850,
@@ -37,10 +37,10 @@ def test_get_inference_not_exited():
     r = client.post("/predict", json=person)
     # print(r.json())
     assert r.status_code == 200
-    assert r.json() == "Not Exited"
+    assert r.json() == "Continued"
 
 # a unit test that tests the status code and response 
-# for an instance with a high income
+# for an customer with a "Exited" status.
 def test_get_inference_exited():
 
     person = {
