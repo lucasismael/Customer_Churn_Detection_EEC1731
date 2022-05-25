@@ -22,8 +22,8 @@ person = {
         "EstimatedSalary": 79084.1
     }
 
-url = "http://127.0.0.1:8000"
-#url = "https://high-income-app-mac.herokuapp.com"
+#url = "http://127.0.0.1:8000"
+url = "https://customer--churn--prediction.herokuapp.com/"
 response = requests.post(f"{url}/predict",
                          json=person)
 
