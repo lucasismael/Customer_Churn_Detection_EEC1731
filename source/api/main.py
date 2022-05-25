@@ -20,10 +20,10 @@ setattr(sys.modules["__main__"], "CategoricalTransformer", CategoricalTransforme
 setattr(sys.modules["__main__"], "NumericalTransformer", NumericalTransformer)
 
 # name of the model artifact
-artifact_model_name = "decision_tree/model_export:latest"
+artifact_model_name = "churn_prediction_project/model_export:latest"
 
 # initiate the wandb project
-run = wandb.init(project="decision_tree",job_type="api")
+run = wandb.init(project="churn_prediction_project",job_type="api")
 
 # create the api
 app = FastAPI()
@@ -31,38 +31,30 @@ app = FastAPI()
 # declare request example data using pydantic
 # a person in our dataset has the following attributes
 class Person(BaseModel):
-    age: int
-    workclass: str
-    fnlwgt: int
-    education: str
-    education_num: int
-    marital_status: str
-    occupation: str
-    relationship: str
-    race: str
-    sex: str
-    capital_gain: int
-    capital_loss: int
-    hours_per_week: int
-    native_country: str
+    CreditScore: int
+    Geography: str
+    Gender: str
+    Age: int
+    Tenure: int
+    Balance: float
+    NumOfProducts: int
+    HasCrCard: int
+    IsActiveMember: int
+    EstimatedSalary: float 
 
     class Config:
         schema_extra = {
             "example": {
-                "age": 72,
-                "workclass": 'Self-emp-inc',
-                "fnlwgt": 473748,
-                "education": 'Some-college',
-                "education_num": 10,
-                "marital_status": 'Married-civ-spouse',
-                "occupation": 'Exec-managerial',
-                "relationship": 'Husband',
-                "race": 'White',
-                "sex": 'Male',
-                "capital_gain": 0,
-                "capital_loss": 0,
-                "hours_per_week": 25,
-                "native_country": 'United-States'
+                "CreditScore": 850,
+                "Geography": 'Spain',
+                "Gender": 'Female',
+                "Age": 43,
+                "Tenure": 2,
+                "Balance": 125510.82,
+                "NumOfProducts": 1,
+                "HasCrCard": 1,
+                "IsActiveMember": 1,
+                "EstimatedSalary": 79084.1
             }
         }
 
@@ -71,10 +63,10 @@ class Person(BaseModel):
 async def root():
     return """
     <p><span style="font-size:28px"><strong>Hello World</strong></span></p>"""\
-    """<p><span style="font-size:20px">In this project, we will apply the skills """\
-        """acquired in the Deploying a Scalable ML Pipeline in Production course to develop """\
-        """a classification model on publicly available"""\
-        """<a href="http://archive.ics.uci.edu/ml/datasets/Adult"> Census Bureau data</a>.</span></p>"""
+    """<p><span style="font-size:20px">It's a machine learning project to predict customer churn."""\
+        """The dataset contains 10.000 rows, each representing an unique customer with 10 caracteristics. """\
+        """(avalible """\
+        """<a href="https://drive.google.com/file/d/12G9RpQauml0QOUAB3aaPaJVduyEnnMzR/view"> here.)</a>.</span></p>"""
 
 # run the model inference and use a Person data structure via POST to the API.
 @app.post("/predict")
@@ -93,4 +85,4 @@ async def get_inference(person: Person):
     # Predict test data
     predict = pipe.predict(df)
 
-    return "low income <=50K" if predict[0] <= 0.5 else "high income >50K"
+    return "Not Exited" if predict[0] <= 0 else "Exited"

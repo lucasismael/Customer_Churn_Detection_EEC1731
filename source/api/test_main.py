@@ -1,6 +1,6 @@
 """
-Creator: Ivanovitch Silva
-Date: 18 April 2022
+Creator: Ivanovitch Silva / José Marcos Leal B. Filho / Lucas Ismael Campos Medeiros
+Date: 24 Maio 2022
 API testing
 """
 from fastapi.testclient import TestClient
@@ -19,52 +19,44 @@ def test_root():
 
 # a unit test that tests the status code and response 
 # for an instance with a low income
-def test_get_inference_low_income():
-
+def test_get_inference_not_exited():
+    
     person = {
-        "age": 72,
-        "workclass": 'Self-emp-inc',
-        "fnlwgt": 473748,
-        "education": 'Some-college',
-        "education_num": 10,
-        "marital_status": 'Married-civ-spouse',
-        "occupation": 'Exec-managerial',
-        "relationship": 'Husband',
-        "race": 'White',
-        "sex": 'Male',
-        "capital_gain": 0,
-        "capital_loss": 0,
-        "hours_per_week": 25,
-        "native_country": 'United-States'
+        "CreditScore": 850,
+        "Geography": 'Spain',
+        "Gender": 'Female',
+        "Age": 43,
+        "Tenure": 2,
+        "Balance": 125510.82,
+        "NumOfProducts": 1,
+        "HasCrCard": 1,
+        "IsActiveMember": 1,
+        "EstimatedSalary": 79084.1
     }
 
     r = client.post("/predict", json=person)
     # print(r.json())
     assert r.status_code == 200
-    assert r.json() == "low income <=50K"
+    assert r.json() == "Not Exited"
 
 # a unit test that tests the status code and response 
 # for an instance with a high income
-def test_get_inference_high_income():
+def test_get_inference_exited():
 
     person = {
-        "age": 46,
-        "workclass": 'Private',
-        "fnlwgt": 364548,
-        "education": 'Bachelors',
-        "education_num": 13,
-        "marital_status": 'Divorced',
-        "occupation": 'Sales',
-        "relationship": 'Not-in-family',
-        "race": 'White',
-        "sex": 'Male',
-        "capital_gain": 8614,
-        "capital_loss": 0,
-        "hours_per_week": 40,
-        "native_country": 'United-States'
+        "CreditScore": 619,
+        "Geography": 'France',
+        "Gender": 'Female',
+        "Age": 42,
+        "Tenure": 2,
+        "Balance": 0,
+        "NumOfProducts": 1,
+        "HasCrCard": 1,
+        "IsActiveMember": 1,
+        "EstimatedSalary": 101348.88
     }
 
     r = client.post("/predict", json=person)
     print(r.json())
     assert r.status_code == 200
-    assert r.json() == "high income >50K"
+    assert r.json() == "Exited"
