@@ -1,6 +1,6 @@
 """
-Creator: Ivanovitch Silva
-Date: 17 April 2022
+Creator: Ivanovitch Silva / José Marcos Leal B. Filho / Lucas Ismael Campos Medeiros
+Date: 24 Maio 2022
 Create API
 """
 # from typing import Union
@@ -62,10 +62,10 @@ class Person(BaseModel):
 @app.get("/", response_class=HTMLResponse)
 async def root():
     return """
-    <p><span style="font-size:28px"><strong>Hello World</strong></span></p>"""\
+    <p><span style="font-size:28px"><strong>Customer Churn Prediction</strong></span></p>"""\
     """<p><span style="font-size:20px">It's a machine learning project to predict customer churn."""\
         """The dataset contains 10.000 rows, each representing an unique customer with 10 caracteristics. """\
-        """(avalible """\
+        """(The dataset is avalible """\
         """<a href="https://drive.google.com/file/d/12G9RpQauml0QOUAB3aaPaJVduyEnnMzR/view"> here.)</a>.</span></p>"""
 
 # run the model inference and use a Person data structure via POST to the API.
